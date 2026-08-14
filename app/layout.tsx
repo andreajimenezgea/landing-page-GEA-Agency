@@ -18,6 +18,11 @@ const satoshi = localFont({
 export const metadata: Metadata = {
   title: site.title,
   description: site.description,
+  icons: {
+    icon: "/logo.svg",
+    shortcut: "/logo.svg",
+    apple: "/logo.svg",
+  },
 };
 
 export const viewport: Viewport = {

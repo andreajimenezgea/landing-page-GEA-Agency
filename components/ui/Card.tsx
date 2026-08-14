@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 export type CardProps = {
   children: ReactNode;
   className?: string;
+  wrapperClassName?: string;
   glow?: boolean;
   glowClassName?: string;
   neonBorder?: boolean;
@@ -16,15 +17,19 @@ export type CardProps = {
 const cardSpring: Transition = { type: "spring", stiffness: 300, damping: 25 };
 const defaultHover: TargetAndTransition = {
   y: -4,
-  boxShadow: "0px 0px 25px rgba(236, 72, 153, 0.15)",
+  boxShadow: "0px 8px 32px rgba(0, 0, 0, 0.45)",
 };
 
 const borderGradient =
-  "conic-gradient(from 90deg at 50% 50%, #0000 0deg, rgba(255,255,255,0.4) 55deg, rgba(255,255,255,0.2) 100deg, #0000 150deg)";
+  "conic-gradient(from 90deg at 50% 50%, #0000 0deg, #00F0FF 30deg, #3B82F6 60deg, #00F0FF 90deg, #0000 120deg)";
+
+const glassInterior =
+  "relative z-10 h-full w-full overflow-hidden rounded-[23px] bg-[#0B0F19] shadow-[inset_0_1px_0_rgba(255,255,255,0.05),inset_0_2px_24px_rgba(0,0,0,0.4)]";
 
 export function Card({
   children,
   className = "",
+  wrapperClassName = "",
   glow = false,
   glowClassName = "",
   neonBorder = false,
@@ -33,10 +38,12 @@ export function Card({
   transition,
   ...rest
 }: CardProps) {
+  void glowClassName;
   const baseClasses = [
-    "relative isolate rounded-3xl border bg-neutral-950",
-    neonBorder ? "border-pink-500/20" : "border-white/10",
+    "relative isolate rounded-3xl border bg-[#0B0F19]",
+    neonBorder ? "border-cyan-500/20" : "border-white/[0.06]",
     glow ? "" : "overflow-hidden",
+    "shadow-[inset_0_1px_0_rgba(255,255,255,0.05),inset_0_2px_24px_rgba(0,0,0,0.4)]",
     className,
   ]
     .filter(Boolean)
@@ -45,31 +52,18 @@ export function Card({
   if (animateBorder) {
     return (
       <motion.div
-        className="relative isolate shrink-0 rounded-3xl border border-white/10"
+        className={`group relative isolate h-full shrink-0 rounded-3xl border border-white/[0.06] ${wrapperClassName}`}
         whileHover={whileHover ?? defaultHover}
         transition={transition ?? cardSpring}
         {...rest}
       >
-        {glow ? (
-          <motion.span
-            aria-hidden
-            className={`pointer-events-none absolute -inset-8 -z-10 rounded-full bg-pink-600/10 blur-3xl ${glowClassName}`}
-          />
-        ) : null}
-
         <div className="relative h-full overflow-hidden rounded-3xl p-[1px]">
-          <motion.span
+          <span
             aria-hidden
-            className="pointer-events-none absolute -inset-[1000%]"
+            className="pointer-events-none absolute -inset-[1000%] opacity-60 transition-opacity duration-500 [animation:border-spin_4s_linear_infinite] group-hover:opacity-100 group-hover:[animation-duration:2s]"
             style={{ background: borderGradient }}
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, ease: "linear", duration: 4 }}
           />
-          <div
-            className={`relative h-full w-full overflow-hidden rounded-[23px] bg-neutral-950 ${className}`}
-          >
-            {children}
-          </div>
+          <div className={`${glassInterior} ${className}`}>{children}</div>
         </div>
       </motion.div>
     );
@@ -82,12 +76,6 @@ export function Card({
       transition={transition ?? cardSpring}
       {...rest}
     >
-      {glow ? (
-        <motion.span
-          aria-hidden
-          className={`pointer-events-none absolute -inset-8 -z-10 rounded-full bg-pink-600/10 blur-3xl ${glowClassName}`}
-        />
-      ) : null}
       {children}
     </motion.div>
   );

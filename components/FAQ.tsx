@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { faqs } from "@/lib/content";
+import { faq } from "@/lib/content";
 import { Container } from "@/components/ui/Container";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -12,13 +12,12 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="scroll-mt-20 py-24 sm:py-32">
+    <section id="faq" className="section-depth-even scroll-mt-20 py-24 sm:py-32">
       <Container>
         <SectionReveal>
           <SectionHeading
-            eyebrow="FAQ"
-            title={<span className="text-gradient">Preguntas frecuentes</span>}
-            subtitle="Todo lo que necesitás saber antes de empezar con Volt Growth."
+            eyebrow={faq.eyebrow}
+            title={<span className="text-gradient">{faq.title}</span>}
           />
         </SectionReveal>
         <motion.div
@@ -27,13 +26,13 @@ export function FAQ() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {faqs.map((faq, index) => {
+          {faq.faqs.map((item, index) => {
             const isOpen = openIndex === index;
             return (
               <motion.div
-                key={faq.question}
+                key={item.question}
                 variants={staggerItem(index)}
-                className="rounded-xl border border-white/10 bg-white/5"
+                className="rounded-xl border border-white/[0.06] bg-[#0F172A]/60 backdrop-blur-sm"
               >
                 <button
                   type="button"
@@ -43,7 +42,7 @@ export function FAQ() {
                   className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
                 >
                   <span className="font-medium text-foreground">
-                    {faq.question}
+                    {item.question}
                   </span>
                   <motion.span
                     aria-hidden
@@ -66,7 +65,7 @@ export function FAQ() {
                       className="overflow-hidden"
                     >
                       <p className="px-5 pb-5 text-sm text-muted">
-                        {faq.answer}
+                        {item.answer}
                       </p>
                     </motion.div>
                   ) : null}

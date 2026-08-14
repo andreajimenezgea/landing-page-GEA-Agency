@@ -1,7 +1,6 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { hero, theme } from "@/lib/content";
 import {
@@ -13,27 +12,20 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { CosmicRing } from "@/components/ui/CosmicRing";
+import { SocialProof } from "@/components/ui/SocialProof";
 
-// Fragmentos del título que se resaltan con gradiente (hero.title.gradient).
-// Si no hay ninguno, el H1 completo usa .text-gradient.
 const highlights = hero.title.gradient ?? [];
 
 function renderTitle() {
   const nodes: ReactNode[] = [];
   let rest = hero.title.text;
-
   highlights.forEach((phrase, i) => {
     const idx = rest.indexOf(phrase);
     if (idx === -1) return;
     if (idx > 0) nodes.push(rest.slice(0, idx));
-    nodes.push(
-      <span key={i} className="text-gradient">
-        {phrase}
-      </span>
-    );
+    nodes.push(<span key={i} className="text-gradient">{phrase}</span>);
     rest = rest.slice(idx + phrase.length);
   });
-
   if (rest) nodes.push(rest);
   return nodes;
 }
@@ -42,15 +34,18 @@ export function Hero() {
   const hasHighlights = highlights.length > 0;
 
   return (
-    <section className="relative isolate overflow-hidden pb-20 pt-28 sm:pt-32 lg:pt-40">
-      {/* Glow de fondo: índigo principal + rosa/accento tenues + agujero negro */}
+    <section id="hero" className="relative isolate overflow-hidden pb-36 pt-28 sm:pt-32 lg:pt-40">
+      {/* Deep blue gradient mesh background */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-20">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0B0F19] via-[#0F172A] to-[#0B0F19]" />
+        <div className="absolute left-0 top-0 h-full w-full bg-[radial-gradient(ellipse_80%_50%_at_20%_0%,rgba(30,64,175,0.2),transparent)]" />
+        <div className="absolute right-0 top-1/4 h-full w-full bg-[radial-gradient(ellipse_60%_40%_at_80%_30%,rgba(0,240,255,0.06),transparent)]" />
+      </div>
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-[-25%] h-[560px] w-[760px] -translate-x-1/2 rounded-full opacity-30 blur-[120px]">
+        <div className="absolute left-1/2 top-[-25%] h-[560px] w-[760px] -translate-x-1/2 rounded-full opacity-40 blur-[120px]">
           <motion.div
             className="h-full w-full"
-            style={{
-              background: `radial-gradient(closest-side, ${theme.indigo}, transparent)`,
-            }}
+            style={{ background: `radial-gradient(closest-side, ${theme.indigo}, transparent)` }}
             animate={ambientPulse}
             transition={{ ...ambientTransition, delay: 0 }}
           />
@@ -58,9 +53,7 @@ export function Hero() {
         <div className="absolute right-[-10%] top-1/3 h-[380px] w-[380px] rounded-full opacity-20 blur-[110px]">
           <motion.div
             className="h-full w-full"
-            style={{
-              background: `radial-gradient(closest-side, ${theme.brand}, transparent)`,
-            }}
+            style={{ background: `radial-gradient(closest-side, ${theme.brand}, transparent)` }}
             animate={ambientPulse}
             transition={{ ...ambientTransition, delay: 2.5 }}
           />
@@ -68,9 +61,7 @@ export function Hero() {
         <div className="absolute bottom-[-10%] left-[-10%] h-[320px] w-[520px] rounded-full opacity-[0.15] blur-[110px]">
           <motion.div
             className="h-full w-full"
-            style={{
-              background: `radial-gradient(closest-side, ${theme.accent}, transparent)`,
-            }}
+            style={{ background: `radial-gradient(closest-side, ${theme.accent}, transparent)` }}
             animate={ambientPulse}
             transition={{ ...ambientTransition, delay: 5 }}
           />
@@ -85,7 +76,7 @@ export function Hero() {
         className="mx-auto w-full max-w-7xl px-4 text-center sm:px-6 lg:px-8"
       >
         <motion.div variants={fadeUp} className="flex justify-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-foreground/80">
+          <span className="inline-flex items-center gap-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 px-4 py-1.5 text-sm text-cyan-300/90">
             <Icon name="star" className="h-4 w-4 text-brand" />
             {hero.badge}
           </span>
@@ -93,7 +84,7 @@ export function Hero() {
 
         <motion.h1
           variants={fadeUp}
-          className={`mx-auto mt-6 max-w-4xl text-balance text-4xl font-medium tracking-tight sm:text-5xl lg:text-6xl ${
+          className={`mx-auto mt-6 max-w-6xl text-balance text-white text-4xl font-medium leading-[1.2] tracking-tight pb-[0.1em] -mb-[0.1em] sm:text-5xl lg:text-6xl ${
             hasHighlights ? "" : "text-gradient"
           }`}
         >
@@ -102,15 +93,12 @@ export function Hero() {
 
         <motion.p
           variants={fadeUp}
-          className="mx-auto mt-6 max-w-2xl text-lg text-muted"
+          className="mx-auto mt-6 max-w-3xl text-lg text-slate-200 [text-shadow:0_2px_12px_rgba(0,0,0,0.9)]"
         >
           {hero.subtitle}
         </motion.p>
 
-        <motion.div
-          variants={fadeUp}
-          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
-        >
+        <motion.div variants={fadeUp} className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button href={hero.primaryCta.href} size="lg">
             {hero.primaryCta.label}
           </Button>
@@ -121,27 +109,19 @@ export function Hero() {
 
         <motion.div
           variants={fadeUp}
-          className="mt-12 flex items-center justify-center gap-3"
+          className="mt-12 hidden flex flex-wrap items-center justify-center gap-x-8 gap-y-3 [text-shadow:0_2px_16px_rgba(0,0,0,0.9)]"
         >
-          <div className="flex -space-x-3">
-            {hero.avatars.map((avatar) => (
-              <Image
-                key={avatar}
-                src={avatar}
-                alt=""
-                width={40}
-                height={40}
-                className="h-10 w-10 rounded-full border-2 border-background object-cover"
-              />
-            ))}
-          </div>
-          <p className="text-sm text-muted">
-            <span className="font-semibold text-foreground">
-              {hero.stats.value}
-            </span>{" "}
-            {hero.stats.label}
-          </p>
+          {hero.stats.map((stat) => (
+            <div key={stat.value} className="text-center">
+              <span className="text-3xl font-semibold text-white">{stat.value}</span>
+              <span className="ml-2 text-sm text-slate-200">{stat.label}</span>
+            </div>
+          ))}
         </motion.div>
+
+        <div className="mt-17">
+          <SocialProof />
+        </div>
       </motion.div>
     </section>
   );

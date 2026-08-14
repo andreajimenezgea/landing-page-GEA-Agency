@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { videoTestimonials } from "@/lib/content";
 import { Container } from "@/components/ui/Container";
@@ -32,7 +31,7 @@ export function VideoTestimonials() {
   const [cardWidth, setCardWidth] = useState(0);
   const viewportRef = useRef<HTMLDivElement>(null);
 
-  const maxIndex = Math.max(0, videoTestimonials.length - perView);
+  const maxIndex = Math.max(0, videoTestimonials.items.length - perView);
   const clampedIndex = Math.min(index, maxIndex);
 
   useEffect(() => {
@@ -53,17 +52,17 @@ export function VideoTestimonials() {
   const maxOffset = maxIndex * step;
 
   return (
-    <section id="testimonios" className="py-24 sm:py-32">
+    <section id="testimonios" className="section-depth-odd scroll-mt-20 py-24 sm:py-32">
       <Container>
         <SectionReveal>
           <SectionHeading
-            eyebrow="Testimonios"
+            eyebrow={videoTestimonials.eyebrow}
             title={
               <span className="text-gradient">
-                Lo que dicen nuestros clientes
+                {videoTestimonials.title}
               </span>
             }
-            subtitle="Escuchá de primera mano cómo Volt Growth transforma negocios."
+            subtitle={videoTestimonials.subtitle}
           />
         </SectionReveal>
         <SectionReveal className="mt-14">
@@ -90,40 +89,33 @@ export function VideoTestimonials() {
                 }
               }}
             >
-              {videoTestimonials.map((video, index) => (
+              {videoTestimonials.items.map((video, index) => (
                 <Card
                   key={index}
                   animateBorder
                   style={{ width: cardWidth || undefined }}
                   className="shrink-0"
                 >
-                  <iframe
+                  <video
                     src={video.video}
-                    title={video.title}
-                    loading="lazy"
-                    allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-                    allowFullScreen
+                    title={`Testimonio de ${video.name}`}
+                    controls
+                    playsInline
+                    preload="metadata"
+                    {...(index === 0
+                      ? { autoPlay: true, muted: true }
+                      : {})}
                     className="aspect-video w-full rounded-xl border-0"
                   />
-                  <div className="p-5">
-                    <h3 className="text-sm font-medium text-foreground">
-                      {video.title}
-                    </h3>
-                    <div className="mt-3 flex items-center gap-3">
-                      <Image
-                        src={video.logo}
-                        alt={`Logo de ${video.name}`}
-                        width={112}
-                        height={32}
-                        className="h-6 w-auto"
-                      />
-                      <p className="text-xs text-muted">
-                        <span className="font-medium text-foreground">
-                          {video.name}
-                        </span>{" "}
-                        · {video.role}
+                  <div className="min-h-20 p-5">
+                    <p className="line-clamp-1 text-sm font-medium text-foreground">
+                      {video.name}
+                    </p>
+                    {video.role && (
+                      <p className="line-clamp-1 mt-1 text-xs text-muted">
+                        {video.role}
                       </p>
-                    </div>
+                    )}
                   </div>
                 </Card>
               ))}
@@ -145,8 +137,8 @@ export function VideoTestimonials() {
               onClick={() =>
                 setIndex((current) => Math.min(maxIndex, current + 1))
               }
-                disabled={clampedIndex >= maxIndex}
-                aria-label="Next"
+              disabled={clampedIndex >= maxIndex}
+              aria-label="Next"
               className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-foreground transition-colors duration-300 hover:border-white/20 hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:border-white/10 disabled:hover:bg-transparent"
             >
               <Icon name="chevron-right" className="h-5 w-5" />

@@ -1,7 +1,8 @@
 "use client";
 
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 import { motion } from "framer-motion";
+import { interceptAnchorClick } from "@/lib/smooth-scroll";
 
 type ButtonVariant = "primary" | "secondary";
 type ButtonSize = "sm" | "md" | "lg";
@@ -27,15 +28,15 @@ interface ButtonAsLink extends CommonProps {
 type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const borderGradient =
-  "conic-gradient(from 90deg at 50% 50%, #0000 0deg, rgba(255,255,255,0.4) 55deg, rgba(255,255,255,0.2) 100deg, #0000 150deg)";
+  "conic-gradient(from 90deg at 50% 50%, #0000 0deg, rgba(255,255,255,0.9) 30deg, rgba(255,255,255,1) 60deg, rgba(255,255,255,0.9) 90deg, rgba(255,255,255,0.7) 120deg, #0000 150deg)";
 
 const baseClasses =
   "inline-flex items-center justify-center gap-2 rounded-full font-medium select-none whitespace-nowrap";
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-gradient-to-r from-pink-500 via-rose-500 to-rose-500 text-white font-semibold",
-  secondary: "bg-neutral-900 border border-white/20 text-white",
+    "bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 text-white font-semibold shadow-[0_0_20px_rgba(0,240,255,0.3)]",
+  secondary: "bg-[#1E293B] border border-white/10 text-white backdrop-blur-sm",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
@@ -57,8 +58,8 @@ const primaryPaddingClasses: Record<ButtonSize, string> = {
 };
 
 const variantGlow: Record<ButtonVariant, string> = {
-  primary: "0px 0px 20px rgba(236, 72, 153, 0.5)",
-  secondary: "0px 0px 20px rgba(236, 72, 153, 0.35)",
+  primary: "0px 0px 25px rgba(0, 240, 255, 0.4)",
+  secondary: "0px 0px 20px rgba(255, 255, 255, 0.15)",
 };
 
 export function Button(props: ButtonProps) {
@@ -113,12 +114,21 @@ export function Button(props: ButtonProps) {
   );
 
   if ("href" in props) {
+    const isHashLink = props.href.startsWith("#");
     return (
       <motion.a
         href={props.href}
         target={props.target}
         rel={props.rel}
         {...motionProps}
+        onClick={
+          isHashLink
+            ? (e: MouseEvent<HTMLAnchorElement>) => {
+                interceptAnchorClick(e);
+                onClick?.();
+              }
+            : onClick
+        }
       >
         {content}
       </motion.a>

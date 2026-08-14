@@ -21,8 +21,8 @@ export function smoothScrollToId(id: string): void {
   if (Math.abs(targetY - window.scrollY) < 1) return;
 
   animate(window.scrollY, targetY, {
-    duration: 0.8,
-    ease: [0.16, 1, 0.3, 1],
+    duration: 1.3,
+    ease: [0.33, 1, 0.68, 1],
     onUpdate: (v) => window.scrollTo(0, v),
     onComplete: () => history.replaceState(null, "", "#" + id),
   });

@@ -4,8 +4,9 @@ import { useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { testimonials, type Testimonial } from "@/lib/content";
+import { testimonials, type TestimonialItem } from "@/lib/content";
 import { Container } from "@/components/ui/Container";
+import { Card } from "@/components/ui/Card";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SectionReveal } from "@/components/motion";
@@ -53,14 +54,14 @@ function VerticalMarquee({
   );
 }
 
-function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+function TestimonialCard({ testimonial }: { testimonial: TestimonialItem }) {
   return (
-    <div className="mb-6 rounded-3xl border border-white/10 bg-neutral-900/80 p-6">
-      <Icon name="quote" className="h-5 w-5 text-brand" />
-      <p className="mt-4 text-sm leading-relaxed text-foreground sm:text-base">
+    <Card animateBorder glow wrapperClassName="mb-6" className="p-6">
+      <Icon name="quote" className="h-5 w-5 text-cyan-400" strokeWidth={2.5} />
+      <p className="mt-4 text-sm leading-relaxed text-slate-300 sm:text-base">
         {testimonial.quote}
       </p>
-      <div className="mt-6 flex items-center gap-3 border-t border-white/10 pt-5">
+      <div className="mt-6 flex items-center gap-3 border-t border-white/[0.06] pt-5">
         <Image
           src={testimonial.logo}
           alt={`Logo de ${testimonial.name}`}
@@ -69,13 +70,13 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
           className="h-10 w-10 rounded-full object-cover"
         />
         <div>
-          <p className="text-sm font-medium text-foreground">
+          <p className="text-sm font-bold text-white">
             {testimonial.name}
           </p>
-          <p className="text-xs text-muted">{testimonial.role}</p>
+          <p className="text-xs text-slate-400">{testimonial.role}</p>
         </div>
       </div>
-    </div>
+    </Card>
   );
 }
 
@@ -85,10 +86,10 @@ function repeat<T>(items: T[], times = 3): T[] {
   return result;
 }
 
-const columns: { direction: "up" | "down"; items: Testimonial[] }[] = [
-  { direction: "up", items: repeat([testimonials[0], testimonials[3]]) },
-  { direction: "down", items: repeat([testimonials[1], testimonials[4]]) },
-  { direction: "up", items: repeat([testimonials[2], testimonials[5]]) },
+const columns: { direction: "up" | "down"; items: TestimonialItem[] }[] = [
+  { direction: "up", items: repeat([testimonials.items[0], testimonials.items[3], testimonials.items[6]]) },
+  { direction: "down", items: repeat([testimonials.items[1], testimonials.items[4], testimonials.items[7]]) },
+  { direction: "up", items: repeat([testimonials.items[2], testimonials.items[5], testimonials.items[8]]) },
 ];
 
 const maskStyle: CSSProperties = {
@@ -116,17 +117,15 @@ function columnMaskStyle(columnIndex: number): CSSProperties | undefined {
 
 export function Testimonials() {
   return (
-    <section className="py-24 sm:py-32">
+    <section id="casos-voz" className="hidden scroll-mt-20 py-24 sm:py-32">
       <Container>
         <SectionReveal>
           <SectionHeading
-            eyebrow="Testimonios"
+            eyebrow={testimonials.eyebrow}
             title={
-              <span className="text-gradient">
-                Lo que dicen nuestros clientes
-              </span>
+              <span className="text-gradient">{testimonials.title}</span>
             }
-            subtitle="Resultados reales de marcas que confiaron en Volt Growth."
+            subtitle={testimonials.subtitle}
           />
         </SectionReveal>
         <div
