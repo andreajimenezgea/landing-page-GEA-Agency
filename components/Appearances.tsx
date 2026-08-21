@@ -9,7 +9,7 @@ import { appearances } from "@/lib/content";
 
 export function Appearances() {
   return (
-    <section id="apariciones" className="section-depth-odd scroll-mt-20 py-20 lg:py-24">
+    <section id="apariciones" className="section-depth-odd scroll-mt-20 py-4 lg:py-10">
       <Container>
         <SectionReveal className="mb-12 flex flex-col items-center text-center lg:mb-16">
           <SectionHeading

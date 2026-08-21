@@ -1,14 +1,7 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import {
-  animate,
-  motion,
-  useMotionValue,
-  useMotionValueEvent,
-  useReducedMotion,
-} from "framer-motion";
 import { Container } from "./ui/Container";
 import { Card } from "./ui/Card";
 import { SectionHeading } from "./ui/SectionHeading";
@@ -17,109 +10,19 @@ import { Icon } from "./ui/Icon";
 import { team } from "@/lib/content";
 
 export function Team() {
-  const sliderRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const prefersReducedMotion = useReducedMotion();
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
   const [cardWidth, setCardWidth] = useState(0);
-  const [order, setOrder] = useState(() => team.members.map((_, i) => i));
-
-  const n = team.members.length;
-  const step = cardWidth + 16;
-  const animatingRef = useRef(false);
-
-  const x = useMotionValue(0);
+  const [mounted, setMounted] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   const founder = team.founder;
+  const members = team.members;
+  const n = members.length;
 
-  const finishAnimating = useCallback(() => {
-    animatingRef.current = false;
-  }, []);
+  // Duplicamos una vez para loop infinito (como InfiniteMarquee)
+  const clonedMembers = [...members, ...members];
 
-  const scrollSlider = useCallback(
-    (direction: "left" | "right") => {
-      const current = x.get();
-      const target = direction === "right" ? current - step : current + step;
-      if (Math.abs(target - current) < 2) return;
-
-      if (direction === "right") {
-        if (current <= -((n - 1) * step) + 2) {
-          setOrder((prev) => [...prev.slice(1), prev[0]]);
-          x.set(current + step);
-        }
-      } else if (current >= -2) {
-        setOrder((prev) => [prev[n - 1], ...prev.slice(0, n - 1)]);
-        x.set(current - step);
-      }
-
-      const from = x.get();
-      const end = from + (direction === "right" ? -step : step);
-
-      if (prefersReducedMotion) {
-        x.set(end);
-        return;
-      }
-
-      animatingRef.current = true;
-      animate(x, end, {
-        duration: 0.9,
-        ease: [0.22, 1, 0.36, 1],
-        onComplete: finishAnimating,
-        onStop: finishAnimating,
-      });
-    },
-    [n, step, prefersReducedMotion, x, finishAnimating]
-  );
-
-  const updateScrollState = useCallback(
-    (currentX: number) => {
-      setCanScrollLeft(currentX < -2);
-      setCanScrollRight(currentX > -((n - 1) * step) + 2);
-    },
-    [n, step]
-  );
-
-  const updateCardOpacity = useCallback((currentX: number) => {
-    const container = containerRef.current;
-    const track = sliderRef.current;
-    if (!container || !track) return;
-
-    const center = container.clientWidth / 2;
-
-    track.querySelectorAll<HTMLElement>(":scope > div").forEach((card) => {
-      const cardCenter = card.offsetLeft + card.offsetWidth / 2 + currentX;
-      const distance = Math.abs(cardCenter - center);
-      const factor = distance / (container.clientWidth * 0.8);
-      const opacity = Math.max(0.25, 1 - factor);
-      const scale = Math.max(0.9, 1 - factor * 0.1);
-      card.style.opacity = String(opacity);
-      card.style.transform = `scale(${scale})`;
-    });
-  }, []);
-
-  const onXChange = useCallback(
-    (latest: number) => {
-      if (!animatingRef.current) {
-        if (latest <= -((n - 1) * step) - step / 2) {
-          setOrder((prev) => [...prev.slice(1), prev[0]]);
-          x.set(latest + step);
-          return;
-        }
-        if (latest > -step / 2) {
-          setOrder((prev) => [prev[n - 1], ...prev.slice(0, n - 1)]);
-          x.set(latest - step);
-          return;
-        }
-      }
-      updateScrollState(latest);
-      if (!prefersReducedMotion) updateCardOpacity(latest);
-    },
-    [n, step, x, prefersReducedMotion, updateScrollState, updateCardOpacity]
-  );
-
-  useMotionValueEvent(x, "change", onXChange);
-
+  // Medir cardWidth
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -144,12 +47,24 @@ export function Team() {
     };
   }, []);
 
+  // Inicializar
   useEffect(() => {
-    if (!prefersReducedMotion) updateCardOpacity(x.get());
-  }, [cardWidth, prefersReducedMotion, updateCardOpacity, x]);
+    if (cardWidth > 0) {
+      setMounted(true);
+    }
+  }, [cardWidth]);
+
+  // Hover pause/resume (solo controla animationPlayState)
+  const onHover = (entering: boolean) => {
+    setIsPaused(entering);
+  };
+
+  // Duración de la animación CSS (~60px/s)
+  const singleSetWidth = n * (cardWidth + 16);
+  const cssDuration = singleSetWidth > 0 ? singleSetWidth / 60 : 25;
 
   return (
-    <section id="team" className="scroll-mt-20 py-24 sm:py-32">
+    <section id="team" className="scroll-mt-20 py-5 sm:py-7 lg:py-10">
       <Container>
         <SectionReveal className="mb-12 flex flex-col items-center text-center lg:mb-16">
           <SectionHeading
@@ -166,13 +81,13 @@ export function Team() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start mb-16">
 
             {/* ── Foto CEO ── */}
-            <Card animateBorder wrapperClassName="md:col-span-4 aspect-[4/5]">
+            <Card animateBorder wrapperClassName="md:col-span-4 aspect-[4/5] group">
               <Image
                 src={founder.avatar}
                 alt={founder.name}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover grayscale contrast-125 brightness-90"
+                className="object-cover grayscale contrast-125 brightness-90 transition-all duration-500 group-hover:grayscale-0"
                 priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/40 to-transparent" />
@@ -247,95 +162,113 @@ export function Team() {
           </div>
 
           {/* ═══════════════════════════════════════════════
-              FILA 2: TEAM SLIDER (Ancho completo)
+              FILA 2: TEAM SLIDER - CSS MARQUEE PURO (cero parpadeo)
              ═══════════════════════════════════════════════ */}
-          <div ref={containerRef} className="relative w-full overflow-hidden">
-            <motion.div
-              ref={sliderRef}
-              className="flex gap-4 pb-4 w-max select-none cursor-grab active:cursor-grabbing touch-pan-y"
-              drag={prefersReducedMotion ? false : "x"}
-              dragConstraints={{ left: -((n - 1) * step) - step, right: step }}
-              dragElastic={0.05}
-              dragMomentum={false}
-              dragTransition={{ power: 0.2, timeConstant: 200 }}
-              onDragStart={() => {
-                animatingRef.current = false;
-              }}
-              onDragEnd={() => {
-                animatingRef.current = true;
-                const page = Math.round(-x.get() / step);
-                animate(x, -page * step, {
-                  type: "spring",
-                  stiffness: 350,
-                  damping: 40,
-                  onComplete: finishAnimating,
-                  onStop: finishAnimating,
-                });
-              }}
-              style={{ x }}
-            >
-              {order.map((idx) => {
-                const member = team.members[idx];
-                return (
-                  <div
-                    key={member.name}
-                    className="shrink-0 h-full transition-[opacity,transform] duration-500 will-change-transform"
-                    style={{ width: cardWidth }}
-                  >
-                    <Card animateBorder>
-                      <div className="relative aspect-[3/4] overflow-hidden">
-                        <Image
-                          src={member.avatar}
-                          alt={member.name}
-                          fill
-                          sizes="(max-width: 768px) 80vw, 23vw"
-                          className="object-cover grayscale contrast-125 brightness-90 transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/30 to-transparent" />
+          <div
+            ref={containerRef}
+            className="relative w-full overflow-hidden"
+            onMouseEnter={() => onHover(true)}
+            onMouseLeave={() => onHover(false)}
+          >
+            {mounted && (
+              <div className="flex gap-4 pb-4 w-max">
+                {/* Set 1 */}
+                <div
+                  className="flex gap-4"
+                  style={{
+                    animation: `team-scroll ${cssDuration}s linear infinite`,
+                    animationPlayState: isPaused ? "paused" : "running",
+                  }}
+                >
+                  {clonedMembers.map((member, idx) => (
+                    <div
+                      key={`${member.name}-${idx}`}
+                      className="shrink-0 h-full transition-[opacity,transform] duration-500 will-change-transform"
+                      style={{ width: cardWidth }}
+                    >
+                      <Card animateBorder whileHover={{}}>
+                        <div className="relative aspect-[3/4] overflow-hidden group">
+                          <Image
+                            src={member.avatar}
+                            alt={member.name}
+                            fill
+                            sizes="(max-width: 768px) 80vw, 23vw"
+                            className="object-cover grayscale contrast-125 brightness-90 transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/30 to-transparent" />
 
-                        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-                          <h4 className="text-base font-bold text-white break-words">
-                            {member.name}
-                          </h4>
-                          <p className="mt-0.5 text-xs text-slate-400 break-words">
-                            {member.role}
-                          </p>
-                          {member.handle && (
-                            <p className="mt-1 text-[11px] text-cyan-400/70 break-words">
-                              {member.handle}
+                          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                            <h4 className="text-base font-bold text-white break-words">
+                              {member.name}
+                            </h4>
+                            <p className="mt-0.5 text-xs text-slate-400 break-words">
+                              {member.role}
                             </p>
-                          )}
+                            {member.handle && (
+                              <p className="mt-1 text-[11px] text-cyan-400/70 break-words">
+                                {member.handle}
+                              </p>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    </Card>
-                  </div>
-                );
-              })}
-            </motion.div>
+                      </Card>
+                    </div>
+                  ))}
+                </div>
 
-            {/* Flechas de navegación */}
+                {/* Set 2 (duplicado) para loop infinito */}
+                <div
+                  className="flex gap-4"
+                  style={{
+                    animation: `team-scroll ${cssDuration}s linear infinite`,
+                    animationPlayState: isPaused ? "paused" : "running",
+                    animationDelay: `-${cssDuration / 2}s`,
+                  }}
+                  aria-hidden="true"
+                >
+                  {clonedMembers.map((member, idx) => (
+                    <div
+                      key={`${member.name}-${idx}-dup`}
+                      className="shrink-0 h-full transition-[opacity,transform] duration-500 will-change-transform"
+                      style={{ width: cardWidth }}
+                    >
+                      <Card animateBorder whileHover={{}}>
+                        <div className="relative aspect-[3/4] overflow-hidden group">
+                          <Image
+                            src={member.avatar}
+                            alt={member.name}
+                            fill
+                            sizes="(max-width: 768px) 80vw, 23vw"
+                            className="object-cover grayscale contrast-125 brightness-90 transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19] via-[#0B0F19]/30 to-transparent" />
+
+                          <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                            <h4 className="text-base font-bold text-white break-words">
+                              {member.name}
+                            </h4>
+                            <p className="mt-0.5 text-xs text-slate-400 break-words">
+                              {member.role}
+                            </p>
+                            {member.handle && (
+                              <p className="mt-1 text-[11px] text-cyan-400/70 break-words">
+                                {member.handle}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </Card>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Fade edges (como InfiniteMarquee) */}
             <div
               aria-hidden
               className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[#0B0F19] to-transparent sm:w-24"
             />
-            <button
-              type="button"
-              onClick={() => scrollSlider("left")}
-              aria-label="Anterior"
-              disabled={!canScrollLeft}
-              className={`absolute left-0 top-1/2 z-10 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full border border-cyan-500/20 bg-[#0F172A]/90 text-cyan-300 backdrop-blur-sm transition-all duration-300 hover:border-cyan-400/40 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.25)] ${canScrollLeft ? "" : "pointer-events-none opacity-40"}`}
-            >
-              <Icon name="chevron-left" className="h-5 w-5" />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollSlider("right")}
-              aria-label="Siguiente"
-              disabled={!canScrollRight}
-              className={`absolute right-0 top-1/2 z-10 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full border border-cyan-500/20 bg-[#0F172A]/90 text-cyan-300 backdrop-blur-sm transition-all duration-300 hover:border-cyan-400/40 hover:bg-cyan-500/20 hover:shadow-[0_0_20px_rgba(0,240,255,0.25)] ${canScrollRight ? "" : "pointer-events-none opacity-40"}`}
-            >
-              <Icon name="chevron-right" className="h-5 w-5" />
-            </button>
             <div
               aria-hidden
               className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[#0B0F19] to-transparent sm:w-24"

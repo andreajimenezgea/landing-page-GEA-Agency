@@ -18,7 +18,7 @@ const iconMap: Record<string, { name: IconName; animation: "pulse" | "spin" | "d
 
 export function Suitability() {
   return (
-    <section id="para-quien" className="section-depth-even scroll-mt-20 py-20 lg:py-28 relative overflow-hidden">
+    <section id="para-quien" className="section-depth-even scroll-mt-20 py-4 lg:py-10 relative overflow-hidden">
       {/* Glow ambiental */}
       <div
         aria-hidden
@@ -59,7 +59,7 @@ export function Suitability() {
                 <Card
                   animateBorder
                   glow
-                  className="p-6 text-center flex flex-col items-center justify-between h-full min-h-[280px]"
+                  className="p-6 text-center flex flex-col items-center justify-start h-full min-h-[280px]"
                 >
                   {/* Ícono animado */}
                   <div className="flex-none flex flex-col items-center">

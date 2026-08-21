@@ -53,6 +53,7 @@ export function Card({
     return (
       <motion.div
         className={`group relative isolate h-full shrink-0 rounded-3xl border border-white/[0.06] ${wrapperClassName}`}
+        style={{ contain: 'layout style paint', ...rest.style }}
         whileHover={whileHover ?? defaultHover}
         transition={transition ?? cardSpring}
         {...rest}
@@ -60,7 +61,7 @@ export function Card({
         <div className="relative h-full overflow-hidden rounded-3xl p-[1px]">
           <span
             aria-hidden
-            className="pointer-events-none absolute -inset-[1000%] opacity-60 transition-opacity duration-500 [animation:border-spin_4s_linear_infinite] group-hover:opacity-100 group-hover:[animation-duration:2s]"
+            className="pointer-events-none absolute -inset-[100%] opacity-60 transition-opacity duration-500 [animation:border-spin_4s_linear_infinite] group-hover:opacity-100 group-hover:[animation-duration:2s]"
             style={{ background: borderGradient }}
           />
           <div className={`${glassInterior} ${className}`}>{children}</div>

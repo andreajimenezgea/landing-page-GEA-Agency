@@ -14,9 +14,9 @@ interface Stat {
 
 const stats: Stat[] = [
   { value: 2, prefix: "+", suffix: "M€", label: "Gestionados en campañas" },
-  { value: 53, prefix: "+", suffix: "", label: "Empresas escaladas" },
+  { value: 130, prefix: "+", suffix: "M€", label: "en campañas" },
   { value: 90, prefix: "", suffix: " días", label: "Plazo medio para impacto" },
-  { value: 2, prefix: "x", suffix: "", label: "Ventas multiplicadas" },
+  { value: 2, prefix: "x", suffix: "", label: "en ventas" },
 ];
 
 function useCountUp(target: number, start: boolean, reducedMotion: boolean) {

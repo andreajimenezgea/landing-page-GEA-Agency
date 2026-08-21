@@ -1,14 +1,23 @@
 "use client";
 
+import Image from "next/image";
 import { InfiniteMarquee } from "@/components/ui/InfiniteMarquee";
 import { fadeIn, SectionReveal } from "@/components/motion";
 import { logoCloud } from "@/lib/content";
 
-function BrandLogo({ name }: { name: string }) {
+function BrandLogo({ name, logo, size }: { name: string; logo: string; size?: "sm" | "lg" }) {
+  const heightClass = size === "lg" ? "h-36" : "h-20";
   return (
-    <span className="px-6 text-lg font-bold uppercase tracking-wider text-white/40 transition-colors hover:text-white/70">
-      {name}
-    </span>
+    <div className="flex items-center justify-center px-6 grayscale opacity-40 transition-all duration-300 hover:grayscale-0 hover:opacity-80">
+      <Image
+        src={logo}
+        alt={name}
+        width={240}
+        height={100}
+        className={`${heightClass} w-auto object-contain`}
+        unoptimized
+      />
+    </div>
   );
 }
 
@@ -22,8 +31,8 @@ export function LogoCloud() {
 
         <div className="mt-8">
           <InfiniteMarquee direction="left" duration={25}>
-            {logoCloud.brands.map((name) => (
-              <BrandLogo key={name} name={name} />
+            {logoCloud.brands.map((brand) => (
+              <BrandLogo key={brand.name} name={brand.name} logo={brand.logo} size={brand.size} />
             ))}
           </InfiniteMarquee>
         </div>

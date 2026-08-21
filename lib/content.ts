@@ -11,7 +11,7 @@ export interface HeroContent {
 
 export interface LogoCloudContent {
   title: string
-  brands: string[]
+  brands: { name: string; logo: string; size?: "sm" | "lg" }[]
   extra: string
 }
 
@@ -48,6 +48,7 @@ export interface SuccessCase {
   description: string
   highlighted?: boolean
   icon?: string
+  logo?: string
 }
 
 export interface CasesContent {
@@ -202,7 +203,7 @@ export const hero: HeroContent = {
   badge: 'Para empresas con facturación consolidada',
   title: { text: 'Multiplica x2 las ventas de tu negocio.' },
   subtitle:
-    'Con el sistema de marca, percepción y captación que emplean SEAT, Bayer y Carolina Herrera. Aplicado a empresas consolidadas que aún no han explotado el canal digital.',
+    'Con la experiencia en marca, percepción y captación adquirida trabajando con grandes marcas como SEAT, Bayer, LIDL y Carolina Herrera. Aplicado a empresas consolidadas que aún no han explotado el canal digital.',
   primaryCta: { label: 'Solicita tu diagnóstico →', href: '#diagnosis' },
   secondaryCta: { label: 'Cómo funciona', href: '#method' },
   stats: [
@@ -215,7 +216,16 @@ export const hero: HeroContent = {
 // ─── LOGO CLOUD ──────────────────────────────────────────
 export const logoCloud: LogoCloudContent = {
   title: 'Nuestro equipo ha trabajado con marcas como',
-  brands: ['SEAT', 'BAYER', 'LIDL', 'CAROLINA HERRERA', 'PACO RABANNE', 'NINA RICCI', 'JEAN PAUL GAULTIER', 'UNIVERSIDAD DE BARCELONA'],
+  brands: [
+    { name: 'SEAT', logo: '/marcas/vecteezy_seat-logo-brand-car-symbol-with-name-white-design-spanish_20927513.png', size: 'lg' },
+    { name: 'BAYER', logo: '/marcas/bayer.png' },
+    { name: 'LIDL', logo: '/marcas/toppng.com-lidl-supermarkets-vector-logo-400x400.png' },
+    { name: 'CAROLINA HERRERA', logo: '/marcas/carolina-herrera-822588.png', size: 'lg' },
+    { name: 'PACO RABANNE', logo: '/marcas/paco.png', size: 'lg' },
+    { name: 'NINA RICCI', logo: '/marcas/nana ricci.png' },
+    { name: 'JEAN PAUL GAULTIER', logo: '/marcas/Jean-Paul-Gaultier-Logo.png' },
+    { name: 'UNIVERSIDAD DE BARCELONA', logo: '/marcas/universidad.png', size: 'lg' },
+  ],
   extra: '+ 42 marcas más',
 }
 
@@ -226,7 +236,7 @@ export const problem: ProblemContent = {
   headlineHighlight: 'Pero no escala.',
   paragraphs: [
     'Has llegado hasta aquí por boca a boca, comerciales o referidos. Te ha funcionado durante años. Sin embargo, sabes que si explotases el canal digital, podrías estar facturando mucho más.',
-    'Y sí, has probado el digital. Con becarios. Con agencias baratas. Con campañas sueltas. Y solo te ha traído leads fríos, curiosos y personas que tan siquiera saben (o ni se acuerdan) que te han dejado los datos.',
+    'Y sí, has probado el digital. Con becarios. Con agencias baratas. Con campañas sueltas. Y solo te ha traído leads fríos, curiosos y personas que ni siquiera saben (o ni se acuerdan) que te han dejado los datos.',
     'Tienes producto. Tienes capacidad de venta. Tienes potencial. Lo que te falta no es el digital — es el sistema.',
   ],
 }
@@ -263,7 +273,7 @@ export const method: MethodContent = {
       result: 'Más oportunidades con potencial de venta y un sistema de captación que podemos medir, optimizar y escalar',
       icon: 'bolt',
       metrics: [
-        { value: '+500', label: 'leads/mes media' },
+        { value: '+500', label: 'leads/mes de media' },
         { value: '4–6€', label: 'CPL en clientes activos' },
       ],
     },
@@ -275,7 +285,7 @@ export const method: MethodContent = {
 export const process = {
   eyebrow: "Cómo trabajamos",
   title: "Cuatro pasos y tu canal digital funcionando.",
-  subtitle: "Sin plantillas ni normas rígidas. Diseñamos el Método GEA a la medida de tu negocio, tu sector y tu punto de partida real.",
+  subtitle: "Sin fórmulas genéricas. Diseñamos el Método GEA a la medida de tu negocio, tu sector y tu punto de partida real.",
   steps: [
     { number: "01", title: "Diagnóstico estratégico", description: "Auditamos tu situación digital, tu producto, tu proceso comercial. Radiografía real, no llamada de venta." },
     { number: "02", title: "Diseñamos el Método", description: "Adaptamos las 3 piezas (marca + percepción + captación) a tu punto de partida con KPIs claros a 90 días." },
@@ -293,7 +303,7 @@ export const cases: CasesContent = {
     {
       number: '01',
       name: 'Dani Martínez',
-      sector: 'B2C · Real Estate',
+      sector: 'Empresario',
       headline: '+2M€',
       description: '3 meses · 3K€ de inversión publicitaria · +105K€ en comisiones generadas',
       highlighted: true,
@@ -301,19 +311,21 @@ export const cases: CasesContent = {
     },
     {
       number: '02',
-      name: 'GCM LLC',
-      sector: 'Gestoría fiscal · B2B',
+      name: 'Miguel Navarro',
+      sector: 'Empresa B2B',
       headline: '+20K€',
       description: '1 mes · CPL 4-6€ · Tickets de 997€ y 1.397€ · +500 leads generados',
       icon: 'briefcase',
+      logo: '/exito/GCM.png',
     },
     {
       number: '03',
       name: 'Endika Drame',
-      sector: 'Educación premium · cienciaConciencia®',
+      sector: 'Empresario',
       headline: '55-60K€',
       description: 'generados en digital · ROAS sostenido durante 16 meses · 7K€ de inversión',
       icon: 'graduation',
+      logo: '/exito/Logo-nuevo-cienciaConciencia.webp',
     },
     {
       number: '04',
@@ -322,6 +334,7 @@ export const cases: CasesContent = {
       headline: 'Top 1',
       description: 'Posicionamiento de marca · Visibilidad internacional · Interés institucional desde Perú · +1.000 seguidores orgánicos',
       icon: 'rocket',
+      logo: '/exito/logotipo-ritec.svg',
     },
   ],
 }
@@ -346,16 +359,17 @@ export const videoTestimonials: VideoTestimonialsContent = {
   title: 'Lo dicen ellos, no nosotros.',
   subtitle: 'Clientes reales contando en cámara qué consiguieron trabajando con GEA.',
   items: [
-    { name: 'Carmen', role: '', video: '/testimonios/carmen.mp4' },
-    { name: 'Daniel', role: 'Inversión inmobiliaria', video: '/testimonios/daniel.mp4' },
-    { name: 'Endika', role: 'cienciaConciencia®', video: '/testimonios/endika.mp4' },
-    { name: 'Hugo', role: '', video: '/testimonios/hugo.mp4' },
-    { name: 'Lorena', role: '', video: '/testimonios/lorena.mp4' },
-    { name: 'Miguel', role: '', video: '/testimonios/miguel.mp4' },
-    { name: 'Nicolas', role: '', video: '/testimonios/nicolas.mp4' },
-    { name: 'Noe', role: '', video: '/testimonios/noe.mp4' },
-    { name: 'Nuria', role: '', video: '/testimonios/nuria.mp4' },
-    { name: 'Raquel', role: 'RITEC · Agricultura', video: '/testimonios/raquel.mp4' },
+    { name: 'Miguel Navarro', role: 'CEO GCM Asesores', video: '/testimonios/miguel.mp4' },
+    { name: 'Raquel Peregrín', role: 'CoCEO Ritec', video: '/testimonios/raquel.mp4' },
+    { name: 'Hugo Muñoz', role: 'Empresario', video: '/testimonios/hugo.mp4' },
+    { name: 'Endika Drame', role: 'Infoproductor', video: '/testimonios/endika.mp4' },
+    { name: 'Carmen Peñas', role: 'Dir. Clínica Peñas', video: '/testimonios/carmen.mp4' },
+    { name: 'Daniel Marmor', role: 'Hipnotista', video: '/testimonios/daniel.mp4' },
+    { name: 'Nuria Muñoz', role: 'CEO Ginac Clínica Estética', video: '/testimonios/nuria.mp4' },
+    { name: 'Noe Cagnolio', role: 'Coach', video: '/testimonios/noe.mp4' },
+    { name: 'Lorena Hernández', role: 'Infoproductora', video: '/testimonios/lorena.mp4' },
+    { name: 'Nicolás', role: 'Empresario Be Clean SL', video: '/testimonios/nicolas.mp4' },
+    { name: 'Alba Moreno', role: 'Infoproductora', video: '/testimonios/alba.mp4' },
   ],
 }
 
@@ -427,7 +441,7 @@ export const team: TeamContent = {
   eyebrow: 'Detrás de GEA',
   title: 'El equipo de gea',
   subtitle:
-    'GEA es un equipo estratégico con experiencia real en las marcas más grandes del país.',
+    'GEA es un equipo estratégico con experiencia real trabajando para grandes marcas y empresas consolidadas.',
   founder: {
     name: 'Andrea Jiménez',
     role: 'Founder & CEO',
@@ -435,14 +449,14 @@ export const team: TeamContent = {
     badge: 'A',
     handle: '@andreajimenez.yt',
     description:
-      '+10 años como estratega de campañas de cientos de miles de euros para SEAT, Bayer, LIDL, Carolina Herrera y PUIG en agencias como Omnicom, PHD Media, Starcom y WINK. Profesora en la Universitat de Barcelona en Planificación de Medios Publicitarios y Formación de Portavoces.',
+      '+10 años de experiencia en estrategia y planificación de campañas de cientos de miles de euros para SEAT, Bayer, LIDL, Carolina Herrera y PUIG en agencias como Omnicom, PHD Media, Starcom y WINK. Profesora en la Universitat de Barcelona en Planificación de Medios Publicitarios y Formación de Portavoces.',
     tags: ['EX-SEAT', 'EX-BAYER', 'EX-LIDL', 'EX-C. HERRERA', 'EX-PUIG', 'PROFESORA UB'],
   },
   members: [
     {
       name: 'Juan Nieto',
       role: 'CTO',
-      avatar: '/Equipo/juan-nieto-cto.webp',
+      avatar: '/Equipo/juan-nieto-cto.png',
       badge: 'J',
       handle: '@juanieto',
     },
@@ -546,7 +560,7 @@ export const team: TeamContent = {
     },
     {
       name: 'Sullin',
-      role: 'Virtual Assistant',
+      role: 'Executive Assistant',
       avatar: '/Equipo/sullin-virtual-assistant.png',
       badge: 'S',
       handle: '@sullin',
@@ -558,7 +572,7 @@ export const team: TeamContent = {
 export const appearances: AppearancesContent = {
   eyebrow: 'Apariciones y ponencias',
   title: 'Más que una agencia. Referentes.',
-  subtitle: 'Compartimos lo que sabemos en aulas, ponencias y medios. Porque cuando enseñas algo, lo dominas mejor.',
+  subtitle: 'Compartimos lo que sabemos en aulas, ponencias y medios.',
   items: [
     {
       type: 'Docencia',
@@ -618,9 +632,9 @@ export const suitability: SuitabilityContent = {
 // ─── DIAGNOSIS ───────────────────────────────────────────
 export const diagnosis: DiagnosisForm = {
   eyebrow: 'Solicita tu diagnóstico',
-  title: 'Solo trabajamos con negocios que encajan con nuestro sistema.',
+  title: 'Descubre si el Método GEA puede ayudarte a vender más',
   subtitle:
-    'Si encajamos, te lo decimos. Si no, también — y te orientamos hacia lo que sí te puede ayudar. Sin compromiso.',
+    'Déjanos tus datos y analizamos si podemos ayudarte.',
   fields: [
     { name: 'name', placeholder: 'Ej: María García — InverPro SL' },
     { name: 'email', placeholder: 'Email' },
@@ -654,17 +668,17 @@ export const faq: FaqContent = {
     {
       question: '¿Por qué vosotros y no otra agencia?',
       answer:
-        'Porque ninguna otra agencia de paid tiene la visión estratégica que da haber planificado campañas de cientos de miles de euros para Carolina Herrera, SEAT o Bayer. Y ninguna otra agencia de paid te acompaña también en el cierre de los leads que te trae. Vendemos un sistema, no un servicio aislado.',
+        'Porque combinamos la experiencia en planificación de campañas de cientos de miles de euros para marcas como Carolina Herrera, SEAT o Bayer con una visión estratégica que va más allá del paid. Y además, no nos quedamos en generar leads: acompañamos el proceso comercial para entender qué ocurre después. Vendemos un sistema, no un servicio aislado.',
     },
     {
       question: '¿Hay permanencia?',
       answer:
-        'Sí, mínimo 3 meses. Es el tiempo necesario para construir marca, activar campañas y empezar a ver resultados medibles. Después, trabajamos mes a mes. Si en cualquier momento no estás satisfecho, lo conversamos.',
+        'Sí, mínimo 3 meses. Es el tiempo necesario para construir marca, activar campañas y empezar a ver resultados medibles. Después, trabajamos mes a mes. Si en cualquier momento no estás satisfecho, lo hablamos.',
     },
     {
       question: '¿Trabajáis con cualquier sector?',
       answer:
-        'Trabajamos con empresas consolidadas con producto de ticket medio-alto. Hemos llevado inversión inmobiliaria, formación premium, agricultura, B2B fiscal, infoproducto y más. Si tienes un producto serio y mentalidad empresarial, encajas.',
+        'No trabajamos por sector, sino por encaje. Trabajamos con empresas consolidadas, con un producto o servicio validado y capacidad para crecer. Hemos trabajado con inversión inmobiliaria, formación premium, agricultura, B2B fiscal, infoproductos y más. Si sabes que tu negocio puede estar vendiendo mucho más a través del digital, vemos si podemos ayudarte.',
     },
   ],
 }
@@ -694,18 +708,10 @@ export const footer: FooterContent = {
     {
       title: 'Redes',
       links: [
-        { label: 'Instagram @gea.marketing', href: '#' },
-        { label: 'Instagram personal @andreajimenez.yt', href: '#' },
+        { label: 'Instagram @gea.agency', href: '#' },
+        { label: 'Instagram founder @andreajimenez.yt', href: '#' },
         { label: 'Email contacto@gea-agency.com', href: 'mailto:contacto@gea-agency.com' },
-        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/andrea-jim%C3%A9nez-fructuoso-864862b2/' },
-      ],
-    },
-    {
-      title: 'Legal',
-      links: [
-        { label: 'Aviso legal', href: '#' },
-        { label: 'Política de privacidad', href: '#' },
-        { label: 'Política de cookies', href: '#' },
+        { label: 'LinkedIn Andrea Jiménez', href: 'https://www.linkedin.com/in/andrea-jim%C3%A9nez-fructuoso-864862b2/' },
       ],
     },
   ],

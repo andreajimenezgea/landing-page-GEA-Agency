@@ -105,3 +105,13 @@ body::after {
       0 0 30px rgba(0, 240, 255, 0.2);
   }
 }
+
+/* Team carousel infinite scroll */
+@keyframes team-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

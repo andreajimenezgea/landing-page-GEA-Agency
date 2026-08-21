@@ -52,7 +52,7 @@ export function VideoTestimonials() {
   const maxOffset = maxIndex * step;
 
   return (
-    <section id="testimonios" className="section-depth-odd scroll-mt-20 py-24 sm:py-32">
+    <section id="testimonios" className="section-depth-odd scroll-mt-20 py-5 sm:py-7 lg:py-10">
       <Container>
         <SectionReveal>
           <SectionHeading
@@ -99,13 +99,17 @@ export function VideoTestimonials() {
                   <video
                     src={video.video}
                     title={`Testimonio de ${video.name}`}
-                    controls
                     playsInline
                     preload="metadata"
                     {...(index === 0
                       ? { autoPlay: true, muted: true }
                       : {})}
-                    className="aspect-video w-full rounded-xl border-0"
+                    onClick={(e) => {
+                      const vid = e.currentTarget;
+                      if (vid.paused) vid.play();
+                      else vid.pause();
+                    }}
+                    className="aspect-video w-full rounded-xl border-0 cursor-pointer"
                   />
                   <div className="min-h-20 p-5">
                     <p className="line-clamp-1 text-sm font-medium text-foreground">
