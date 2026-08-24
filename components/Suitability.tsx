@@ -59,7 +59,7 @@ export function Suitability() {
                 <Card
                   animateBorder
                   glow
-                  className="p-6 text-center flex flex-col items-center justify-center h-full min-h-[280px]"
+                  className="p-6 text-center flex flex-col items-center justify-start h-full min-h-[280px]"
                 >
                   {/* Ícono animado */}
                   <div className="flex-none flex flex-col items-center">
@@ -79,8 +79,8 @@ export function Suitability() {
                   </div>
 
                   {/* Texto */}
-                  <div className="flex-1 flex flex-col justify-center items-center py-4">
-                    <h3 className="text-xl font-bold text-white mb-3">
+                  <div className="flex-1 flex flex-col items-center py-4">
+                    <h3 className="flex-none text-xl font-bold text-white mb-3">
                       {item.title}
                     </h3>
                     <p className="text-sm leading-relaxed text-slate-400">
