@@ -47,7 +47,7 @@ const avatars = [
 export function SocialProof() {
   return (
     <div className="flex flex-col items-center gap-1.5 text-center">
-      <div className="-space-x-1.5 flex items-center">
+      <div className="-space-x-3 flex items-center">
         {avatars.map((avatar) => (
           <Image
             key={avatar.alt}
