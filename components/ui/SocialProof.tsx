@@ -39,7 +39,7 @@ const avatars = [
     alt: "Foto de perfil de una directora",
   },
   {
-    src: "/exito/Logo Dani Martínez Asesor.jpg",
+    src: "/exito/lodo_dani.jpg",
     alt: "Foto de perfil de un asesor",
   },
 ];
