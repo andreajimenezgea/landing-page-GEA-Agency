@@ -59,7 +59,7 @@ export function Suitability() {
                 <Card
                   animateBorder
                   glow
-                  className="p-6 text-center flex flex-col items-center justify-start h-full min-h-[280px]"
+                  className="p-6 text-center flex flex-col items-center justify-center h-full min-h-[280px]"
                 >
                   {/* Ícono animado */}
                   <div className="flex-none flex flex-col items-center">
