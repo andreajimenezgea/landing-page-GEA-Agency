@@ -13,10 +13,9 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { value: 2, prefix: "+", suffix: "M€", label: "Gestionados en campañas" },
-  { value: 130, prefix: "+", suffix: "M€", label: "en campañas" },
-  { value: 90, prefix: "", suffix: " días", label: "Plazo medio para impacto" },
   { value: 2, prefix: "x", suffix: "", label: "en ventas" },
+  { value: 10, prefix: "+", suffix: "", label: "Años de experiencia" },
+  { value: 130, prefix: "+", suffix: "M€", label: "gestionados en campañas" },
 ];
 
 function useCountUp(target: number, start: boolean, reducedMotion: boolean) {
@@ -69,7 +68,7 @@ export function StatsBanner() {
     <section className="w-full bg-gradient-to-r from-[#0B0F19] via-[#1E293B] to-[#0B0F19] border-y border-blue-500/20 py-10">
       <Container>
         <SectionReveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div className="grid grid-cols-3 gap-8 text-center">
             {stats.map((stat, i) => (
               <StatItem key={stat.label} stat={stat} index={i} />
             ))}
