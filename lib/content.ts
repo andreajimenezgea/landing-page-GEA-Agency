@@ -48,7 +48,6 @@ export interface SuccessCase {
   description: string
   highlighted?: boolean
   icon?: string
-  logo?: string
 }
 
 export interface CasesContent {
@@ -316,7 +315,6 @@ export const cases: CasesContent = {
       headline: '+20K€',
       description: '1 mes · CPL 4-6€ · Tickets de 997€ y 1.397€ · +500 leads generados',
       icon: 'briefcase',
-      logo: '/exito/GCM.png',
     },
     {
       number: '03',
@@ -325,7 +323,6 @@ export const cases: CasesContent = {
       headline: '55-60K€',
       description: 'generados en digital · ROAS sostenido durante 16 meses · 7K€ de inversión',
       icon: 'graduation',
-      logo: '/exito/Logo-nuevo-cienciaConciencia.webp',
     },
     {
       number: '04',
@@ -334,7 +331,6 @@ export const cases: CasesContent = {
       headline: 'Top 1',
       description: 'Posicionamiento de marca · Visibilidad internacional · Interés institucional desde Perú · +1.000 seguidores orgánicos',
       icon: 'rocket',
-      logo: '/exito/logotipo-ritec.svg',
     },
   ],
 }

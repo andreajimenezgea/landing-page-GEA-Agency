@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { Container } from "./ui/Container";
 import { Card } from "./ui/Card";
@@ -58,34 +57,21 @@ export function Cases() {
                   glow
                   className="p-8 text-center flex flex-col items-center justify-between h-full min-h-[420px]"
                 >
-                  {/* Bloque Superior - Logo o Ícono + Tag (fijo) */}
+                  {/* Bloque Superior - Ícono + Tag (fijo) */}
                   <div className="flex-none flex flex-col items-center">
-                    {successCase.logo ? (
-                      <div className="flex items-center justify-center w-28 h-28 rounded-2xl bg-blue-950/40 border border-cyan-500/30 mb-4 group-hover:border-cyan-400/40 group-hover:bg-cyan-500/10 transition-all duration-300 overflow-hidden">
-                        <Image
-                          src={successCase.logo}
-                          alt={successCase.name}
-                          width={96}
-                          height={96}
-                          className="object-contain w-20 h-20"
-                          unoptimized
-                        />
-                      </div>
-                    ) : (
-                      <motion.div
-                        animate={{ y: [0, -6, 0] }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                        className="flex items-center justify-center w-20 h-20 rounded-2xl bg-blue-950/40 border border-cyan-500/30 text-cyan-400 mb-4 group-hover:border-cyan-400/40 group-hover:bg-cyan-500/10 transition-all duration-300"
-                      >
-                        <AnimatedIcon
-                          name={iconConfig.name}
-                          animation={iconConfig.animation}
-                          size={36}
-                          strokeWidth={2.5}
-                          className="text-cyan-400"
-                        />
-                      </motion.div>
-                    )}
+                    <motion.div
+                      animate={{ y: [0, -6, 0] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                      className="flex items-center justify-center w-20 h-20 rounded-2xl bg-blue-950/40 border border-cyan-500/30 text-cyan-400 mb-4 group-hover:border-cyan-400/40 group-hover:bg-cyan-500/10 transition-all duration-300"
+                    >
+                      <AnimatedIcon
+                        name={iconConfig.name}
+                        animation={iconConfig.animation}
+                        size={36}
+                        strokeWidth={2.5}
+                        className="text-cyan-400"
+                      />
+                    </motion.div>
                     <span className="inline-block text-[10px] font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-950/50 border border-cyan-500/20 px-2.5 py-0.5 rounded-full">
                       {successCase.sector}
                     </span>
