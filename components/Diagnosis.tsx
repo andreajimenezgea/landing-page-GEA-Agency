@@ -22,7 +22,7 @@ export function Diagnosis() {
   };
 
   return (
-    <section id="diagnosis" className="section-depth-odd scroll-mt-20 py-24 sm:py-32">
+    <section id="diagnosis" className="section-depth-odd scroll-mt-20 py-12 sm:py-16">
       <Container>
         <SectionReveal className="mb-12 flex flex-col items-center text-center lg:mb-16">
           <SectionHeading

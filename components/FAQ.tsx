@@ -12,7 +12,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="section-depth-even scroll-mt-20 py-24 sm:py-32">
+    <section id="faq" className="section-depth-even scroll-mt-20 py-12 sm:py-16">
       <Container>
         <SectionReveal>
           <SectionHeading
