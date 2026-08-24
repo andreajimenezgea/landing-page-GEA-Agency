@@ -55,7 +55,7 @@ export function SocialProof() {
             alt={avatar.alt}
             width={104}
             height={104}
-            className="h-[30px] w-[30px] rounded-full object-cover bg-white"
+            className="h-[40px] w-[40px] rounded-full object-cover"
           />
         ))}
       </div>
