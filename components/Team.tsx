@@ -176,7 +176,10 @@ export function Team() {
                 <div
                   className="flex gap-4"
                   style={{
-                    animation: `team-scroll ${cssDuration}s linear infinite`,
+                    animationName: "team-scroll",
+                    animationDuration: `${cssDuration}s`,
+                    animationTimingFunction: "linear",
+                    animationIterationCount: "infinite",
                     animationPlayState: isPaused ? "paused" : "running",
                   }}
                 >
@@ -220,7 +223,10 @@ export function Team() {
                 <div
                   className="flex gap-4"
                   style={{
-                    animation: `team-scroll ${cssDuration}s linear infinite`,
+                    animationName: "team-scroll",
+                    animationDuration: `${cssDuration}s`,
+                    animationTimingFunction: "linear",
+                    animationIterationCount: "infinite",
                     animationPlayState: isPaused ? "paused" : "running",
                     animationDelay: `-${cssDuration / 2}s`,
                   }}
