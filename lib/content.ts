@@ -605,7 +605,7 @@ export const suitability: SuitabilityContent = {
     {
       icon: "star",
       title: "Capacidad de crecimiento",
-      description: "Tienes capacidad para asumir más clientes, ventas u oportunidades sin que la operación se convierta en un cuello de botella.",
+      description: "Tienes capacidad para asumir más clientes sin que la operación se convierta en un cuello de botella.",
     },
     {
       icon: "eye",
