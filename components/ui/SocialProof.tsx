@@ -3,16 +3,44 @@ import { PhosphorStar } from "./Icon";
 
 const avatars = [
   {
-    src: "/exito/GCM.png",
+    src: "/exito/Captura de pantalla 2026-08-14 a las 13.33.40.png",
     alt: "Foto de perfil de un ejecutivo",
   },
   {
-    src: "/exito/Logo-nuevo-cienciaConciencia.webp",
+    src: "/exito/Captura de pantalla 2026-08-14 a las 13.33.55.png",
     alt: "Foto de perfil de una profesional",
   },
   {
-    src: "/exito/logotipo-ritec.svg",
+    src: "/exito/Captura de pantalla 2026-08-14 a las 13.34.23.png",
     alt: "Foto de perfil de un fundador",
+  },
+  {
+    src: "/exito/Captura de pantalla 2026-08-14 a las 13.35.06.png",
+    alt: "Foto de perfil de una emprendedora",
+  },
+  {
+    src: "/exito/Captura de pantalla 2026-08-14 a las 13.35.15.png",
+    alt: "Foto de perfil de un director",
+  },
+  {
+    src: "/exito/Captura de pantalla 2026-08-14 a las 13.35.26.png",
+    alt: "Foto de perfil de un gerente",
+  },
+  {
+    src: "/exito/Captura de pantalla 2026-08-14 a las 13.35.35.png",
+    alt: "Foto de perfil de una coordinadora",
+  },
+  {
+    src: "/exito/Captura de pantalla 2026-08-14 a las 13.35.46.png",
+    alt: "Foto de perfil de un estratega",
+  },
+  {
+    src: "/exito/Captura de pantalla 2026-08-14 a las 13.37.34.png",
+    alt: "Foto de perfil de una directora",
+  },
+  {
+    src: "/exito/Logo Dani Martínez Asesor.jpg",
+    alt: "Foto de perfil de un asesor",
   },
 ];
 
