@@ -219,7 +219,7 @@ export const logoCloud: LogoCloudContent = {
     { name: 'SEAT', logo: '/marcas/vecteezy_seat-logo-brand-car-symbol-with-name-white-design-spanish_20927513.png', size: 'lg' },
     { name: 'BAYER', logo: '/marcas/bayer.png' },
     { name: 'LIDL', logo: '/marcas/toppng.com-lidl-supermarkets-vector-logo-400x400.png' },
-    { name: 'CAROLINA HERRERA', logo: '/marcas/carolina-herrera-822588.webp', size: 'lg' },
+    { name: 'CAROLINA HERRERA', logo: '/marcas/carolina-herrera-822588.png', size: 'lg' },
     { name: 'PACO RABANNE', logo: '/marcas/paco.png', size: 'lg' },
     { name: 'NINA RICCI', logo: '/marcas/nana ricci.png' },
     { name: 'JEAN PAUL GAULTIER', logo: '/marcas/Jean-Paul-Gaultier-Logo.png' },
