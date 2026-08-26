@@ -10,12 +10,14 @@ interface Stat {
   prefix: string;
   suffix: string;
   label: string;
+  format?: "number" | "plain";
 }
 
 const stats: Stat[] = [
-  { value: 2, prefix: "x", suffix: "", label: "en ventas" },
+  { value: 2000000, prefix: "+", suffix: "€", label: "Han facturado nuestros clientes", format: "number" },
   { value: 10, prefix: "+", suffix: "", label: "Años de experiencia" },
-  { value: 130, prefix: "+", suffix: "M€", label: "gestionados en campañas" },
+  { value: 130, prefix: "+", suffix: "M€", label: "Gestionados en campañas" },
+  { value: 2, prefix: "x", suffix: "", label: "En Ventas" },
 ];
 
 function useCountUp(target: number, start: boolean, reducedMotion: boolean) {
@@ -53,7 +55,7 @@ function StatItem({ stat, index }: { stat: Stat; index: number }) {
     >
       <span className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
         {stat.prefix}
-        {count}
+        {stat.format === "number" ? count.toLocaleString("es-ES") : count}
         {stat.suffix}
       </span>
       <span className="text-[10px] md:text-xs font-semibold tracking-widest text-cyan-400 uppercase mt-2">
@@ -68,7 +70,7 @@ export function StatsBanner() {
     <section className="w-full bg-gradient-to-r from-[#0B0F19] via-[#1E293B] to-[#0B0F19] border-y border-blue-500/20 py-10">
       <Container>
         <SectionReveal>
-            <div className="grid grid-cols-3 gap-8 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, i) => (
               <StatItem key={stat.label} stat={stat} index={i} />
             ))}

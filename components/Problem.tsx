@@ -8,7 +8,7 @@ import { problem } from "@/lib/content";
 
 export function Problem() {
   return (
-    <section id="problema" className="section-depth-even scroll-mt-20 py-20 lg:py-24">
+    <section id="problema" className="section-depth-even scroll-mt-20 pt-8 pb-20 lg:pb-24">
       <Container>
         <SectionReveal className="mb-12 flex flex-col items-center text-center lg:mb-16">
           <SectionHeading

@@ -3,43 +3,43 @@ import { PhosphorStar } from "./Icon";
 
 const avatars = [
   {
-    src: "/exito/Captura de pantalla 2026-08-14 a las 13.33.40.png",
+    src: "/exito/perfil-ejecutivo.png",
     alt: "Foto de perfil de un ejecutivo",
   },
   {
-    src: "/exito/Captura de pantalla 2026-08-14 a las 13.33.55.png",
+    src: "/exito/perfil-profesional.png",
     alt: "Foto de perfil de una profesional",
   },
   {
-    src: "/exito/Captura de pantalla 2026-08-14 a las 13.34.23.png",
+    src: "/exito/perfil-fundador.png",
     alt: "Foto de perfil de un fundador",
   },
   {
-    src: "/exito/Captura de pantalla 2026-08-14 a las 13.35.06.png",
+    src: "/exito/perfil-emprendedora.png",
     alt: "Foto de perfil de una emprendedora",
   },
   {
-    src: "/exito/Captura de pantalla 2026-08-14 a las 13.35.15.png",
+    src: "/exito/perfil-director.png",
     alt: "Foto de perfil de un director",
   },
   {
-    src: "/exito/Captura de pantalla 2026-08-14 a las 13.35.26.png",
+    src: "/exito/perfil-gerente.png",
     alt: "Foto de perfil de un gerente",
   },
   {
-    src: "/exito/Captura de pantalla 2026-08-14 a las 13.35.35.png",
+    src: "/exito/perfil-coordinadora.png",
     alt: "Foto de perfil de una coordinadora",
   },
   {
-    src: "/exito/Captura de pantalla 2026-08-14 a las 13.35.46.png",
+    src: "/exito/perfil-estratega.png",
     alt: "Foto de perfil de un estratega",
   },
   {
-    src: "/exito/Captura de pantalla 2026-08-14 a las 13.37.34.png",
+    src: "/exito/perfil-directora.png",
     alt: "Foto de perfil de una directora",
   },
   {
-    src: "/exito/lodo_dani.jpg",
+    src: "/exito/perfil-asesor.jpg",
     alt: "Foto de perfil de un asesor",
   },
 ];

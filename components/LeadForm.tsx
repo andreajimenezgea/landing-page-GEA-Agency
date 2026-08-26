@@ -35,7 +35,7 @@ export function LeadForm() {
         <SectionReveal className="mb-12 flex flex-col items-center text-center lg:mb-16">
           <SectionHeading
             eyebrow="El método"
-            title={<span className="text-gradient">Deja tus datos si quieres saber más sobre el método.</span>}
+            title={<span className="text-gradient">Descubre si el Método GEA puede ayudarte a vender más</span>}
           />
         </SectionReveal>
 

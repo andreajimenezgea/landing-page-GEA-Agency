@@ -23,7 +23,7 @@ function BrandLogo({ name, logo, size }: { name: string; logo: string; size?: "s
 
 export function LogoCloud() {
   return (
-    <section className="section-depth-odd border-t border-white/[0.06] py-14">
+    <section className="section-depth-odd border-t border-white/[0.06] pt-14 pb-4">
       <div className="mx-auto w-full max-w-7xl px-4 text-center sm:px-6 lg:px-8">
         <SectionReveal variants={fadeIn}>
           <p className="text-sm text-muted">{logoCloud.title}</p>
