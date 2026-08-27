@@ -61,6 +61,7 @@ export interface VideoTestimonial {
   name: string
   role: string
   video: string
+  image: string
 }
 
 export interface VideoTestimonialsContent {
@@ -355,17 +356,17 @@ export const videoTestimonials: VideoTestimonialsContent = {
   title: 'Lo dicen ellos, no nosotros.',
   subtitle: 'Clientes reales contando en cámara qué consiguieron trabajando con GEA.',
   items: [
-    { name: 'Miguel Navarro', role: 'CEO GCM Asesores', video: '/testimonios/miguel.mp4' },
-    { name: 'Raquel Peregrín', role: 'CoCEO Ritec', video: '/testimonios/raquel.mp4' },
-    { name: 'Hugo Muñoz', role: 'Empresario', video: '/testimonios/hugo.mp4' },
-    { name: 'Endika Drame', role: 'Infoproductor', video: '/testimonios/endika.mp4' },
-    { name: 'Carmen Peñas', role: 'Dir. Clínica Peñas', video: '/testimonios/carmen.mp4' },
-    { name: 'Daniel Marmor', role: 'Hipnotista', video: '/testimonios/daniel.mp4' },
-    { name: 'Nuria Muñoz', role: 'CEO Ginac Clínica Estética', video: '/testimonios/nuria.mp4' },
-    { name: 'Noe Cagnolio', role: 'Coach', video: '/testimonios/noe.mp4' },
-    { name: 'Lorena Hernández', role: 'Infoproductora', video: '/testimonios/lorena.mp4' },
-    { name: 'Nicolás', role: 'Empresario Be Clean SL', video: '/testimonios/nicolas.mp4' },
-    { name: 'Alba Moreno', role: 'Infoproductora', video: '/testimonios/alba.mp4' },
+    { name: 'Miguel Navarro', role: 'CEO GCM Asesores', video: '/testimonios/miguel.mp4', image: '/testimonios/miguel.jpg' },
+    { name: 'Raquel Peregrín', role: 'CoCEO Ritec', video: '/testimonios/raquel.mp4', image: '/testimonios/raquel.jpg' },
+    { name: 'Hugo Muñoz', role: 'Empresario', video: '/testimonios/hugo.mp4', image: '/testimonios/hugo.jpg' },
+    { name: 'Endika Drame', role: 'Infoproductor', video: '/testimonios/endika.mp4', image: '/testimonios/endika.jpg' },
+    { name: 'Carmen Peñas', role: 'Dir. Clínica Peñas', video: '/testimonios/carmen.mp4', image: '/testimonios/carmen.png' },
+    { name: 'Daniel Marmor', role: 'Hipnotista', video: '/testimonios/daniel.mp4', image: '/testimonios/daniel.png' },
+    { name: 'Nuria Muñoz', role: 'CEO Ginac Clínica Estética', video: '/testimonios/nuria.mp4', image: '/testimonios/nuria.jpg' },
+    { name: 'Noe Cagnolio', role: 'Coach', video: '/testimonios/noe.mp4', image: '/testimonios/noe.jpg' },
+    { name: 'Lorena Hernández', role: 'Infoproductora', video: '/testimonios/lorena.mp4', image: '/testimonios/lorena.jpg' },
+    { name: 'Nicolás', role: 'Empresario Be Clean SL', video: '/testimonios/nicolas.mp4', image: '/testimonios/nicolas.jpg' },
+    { name: 'Alba Moreno', role: 'Infoproductora', video: '/testimonios/alba.mp4', image: '/testimonios/alba.png' },
   ],
 }
 

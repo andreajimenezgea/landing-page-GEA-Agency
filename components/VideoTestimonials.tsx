@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { videoTestimonials } from "@/lib/content";
+import { videoTestimonials, type VideoTestimonial } from "@/lib/content";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -23,6 +24,67 @@ function usePerView() {
   }, []);
 
   return perView;
+}
+
+function VideoCard({
+  video,
+  autoPlay,
+  width,
+}: {
+  video: VideoTestimonial;
+  autoPlay?: boolean;
+  width: number;
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  return (
+    <Card
+      animateBorder
+      style={{ width: width || undefined }}
+      className="shrink-0"
+    >
+      <div className="relative aspect-video w-full">
+        <video
+          ref={videoRef}
+          src={video.video}
+          title={`Testimonio de ${video.name}`}
+          playsInline
+          preload="metadata"
+          {...(autoPlay ? { autoPlay: true, muted: true } : {})}
+          onClick={(e) => {
+            const vid = e.currentTarget;
+            if (vid.paused) vid.play();
+            else vid.pause();
+          }}
+          onPlay={() => setIsPlaying(true)}
+          onPause={() => setIsPlaying(false)}
+          className="aspect-video w-full rounded-xl border-0 cursor-pointer"
+        />
+        {!isPlaying && (
+          <Image
+            src={video.image}
+            alt={`${video.name} — testimonio en video`}
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            draggable={false}
+            onClick={() => videoRef.current?.play()}
+            className="absolute inset-0 cursor-pointer rounded-xl object-cover"
+          />
+        )}
+      </div>
+      <div className="min-h-20 p-5">
+        <p className="line-clamp-1 text-sm font-medium text-foreground">
+          {video.name}
+        </p>
+        {video.role && (
+          <p className="line-clamp-1 mt-1 text-xs text-muted">
+            {video.role}
+          </p>
+        )}
+      </div>
+    </Card>
+  );
 }
 
 export function VideoTestimonials() {
@@ -90,38 +152,12 @@ export function VideoTestimonials() {
               }}
             >
               {videoTestimonials.items.map((video, index) => (
-                <Card
+                <VideoCard
                   key={index}
-                  animateBorder
-                  style={{ width: cardWidth || undefined }}
-                  className="shrink-0"
-                >
-                  <video
-                    src={video.video}
-                    title={`Testimonio de ${video.name}`}
-                    playsInline
-                    preload="metadata"
-                    {...(index === 0
-                      ? { autoPlay: true, muted: true }
-                      : {})}
-                    onClick={(e) => {
-                      const vid = e.currentTarget;
-                      if (vid.paused) vid.play();
-                      else vid.pause();
-                    }}
-                    className="aspect-video w-full rounded-xl border-0 cursor-pointer"
-                  />
-                  <div className="min-h-20 p-5">
-                    <p className="line-clamp-1 text-sm font-medium text-foreground">
-                      {video.name}
-                    </p>
-                    {video.role && (
-                      <p className="line-clamp-1 mt-1 text-xs text-muted">
-                        {video.role}
-                      </p>
-                    )}
-                  </div>
-                </Card>
+                  video={video}
+                  autoPlay={index === 0}
+                  width={cardWidth}
+                />
               ))}
             </motion.div>
           </div>
